@@ -1,0 +1,23 @@
+name: Notify on QR Scan
+
+on:
+  workflow_dispatch: # Allows manual or webhook-based triggers
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Telegram Notification
+        run: |
+          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="QR code scanned at time"
+
+      - name: Send SMS Notification
+        run: |
+          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
+            --data-urlencode "To=+1234567890" \
+            --data-urlencode "From=+TWILIO_PHONE_NUMBER" \
+            --data-urlencode "Body=QR code scanned at time" \
+            -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
