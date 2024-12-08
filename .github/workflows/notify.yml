@@ -15,10 +15,10 @@ jobs:
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d text="QR code scanned at $TIMESTAMP"
 
-      - name: Send SMS Notification
-        run: |
-          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
-            --data-urlencode "To=${{ secrets.MY_PHONE_NUMBER }}" \
-            --data-urlencode "From=${{ secrets.TWILIO_PHONE_NUMBER }}" \
-            --data-urlencode "Body=QR code scanned at time" \
-            -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
+      #- name: Send SMS Notification
+      #  run: |
+      #    curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
+      #      --data-urlencode "To=${{ secrets.MY_PHONE_NUMBER }}" \
+      #      --data-urlencode "From=${{ secrets.TWILIO_PHONE_NUMBER }}" \
+      #      --data-urlencode "Body=QR code scanned at time" \
+      #      -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
