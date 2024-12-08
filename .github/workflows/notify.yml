@@ -10,9 +10,10 @@ jobs:
     steps:
       - name: Send Telegram Notification
         run: |
+          TIMESTAMP=$(date +"%I:%M %p %m/%d/%Y") # Format the current date and time
           curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="QR code scanned at time"
+            -d text="QR code scanned at $TIMESTAMP"
 
       - name: Send SMS Notification
         run: |
